@@ -24,10 +24,11 @@ public class BookController implements BooksApi {
     BookService bookService;
 
     @Override
-    public ResponseEntity<BookModelCollection> getAllBooks(@RequestParam(value = "authorName", required = false) @Valid String authorName) {
+    public ResponseEntity<BookModelCollection> getAllBooks(
+            @RequestParam(value = "authorName", required = false) @Valid String authorName) {
         return ok(bookService.getAllBooks(authorName));
     }
-    
+
     @Override
     public ResponseEntity<BookModel> addBook(@RequestBody BookModel book) {
         BookModel newBook = bookService.insertByBook(book);

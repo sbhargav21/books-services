@@ -12,6 +12,6 @@ public interface BookService {
     public BookModel delete(Long id);
 
     public BookModel findById(Long id);
-    
+
     public BookModelCollection getAllBooks(String authorName);
 }
