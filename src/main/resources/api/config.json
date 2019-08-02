@@ -1,0 +1,13 @@
+{
+    "library": "spring-mvc",
+    "dateLibrary": "legacy",
+    "useTags": "true",
+    "hideGenerationTimestamp": true,
+    "modelPackage": "demo.books.web.api.model",
+    "apiPackage": "demo.books.web.api",
+    "invokerPackage": "demo.books.service",
+    "importMappings": {
+        "String": "java.lang.String",
+        "Map": "java.util.Map"
+    }
+}

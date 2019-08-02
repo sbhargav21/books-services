@@ -1,0 +1,179 @@
+swagger: '2.0'
+info:
+  description: You can find out more about Swagger at [swagger.io](http://swagger.io) and about data types at [Swagger Data Types](https://swagger.io/docs/specification/data-models/data-types/)
+  version: 1.0.0
+  title: Books Service
+host: 127.0.0.1:8080
+basePath: /books-services
+tags:
+- name: Books
+  description: API for Books
+schemes:
+- http
+paths:  
+  /web/v1/books:
+    post:
+      consumes:
+      - application/json
+      - application/xml
+      produces:
+      - application/json
+      - application/xml
+      tags:
+      - Books
+      summary: Adds a new Book.
+      description: Adds a new Book.
+      operationId: addBook
+      parameters:
+      - name: BookModel
+        in: body
+        description: Request Body that contains data required for creating a new Book
+        required: true
+        schema:
+          $ref: '#/definitions/BookModel'
+      responses:
+        201:
+          description: Returns the Id of the newly created Book
+          headers:
+            Location:
+              description: URL of newly created Book
+              type: string
+          schema:
+            $ref: '#/definitions/BookModel'
+        400:
+          description: Malformed syntax.
+        401:
+          description: Request does not have sufficient credentials.
+        403:
+          description: Request is not authorized.
+        405:
+          description: Invalid input
+        500:
+          description: Internal error
+    get:
+      produces:
+      - application/json
+      - application/xml
+      tags:
+      - Books
+      summary: Get the list of books
+      description: Get the list of books
+      operationId: getAllBooks
+      parameters:
+      - name: authorName
+        in: query
+        description: Author name
+        required: false
+        type: string  
+      responses:
+        201:
+          description: Returns the list of books
+          schema:
+            $ref: '#/definitions/BookModelCollection'
+        400:
+          description: Malformed syntax.
+        401:
+          description: Request does not have sufficient credentials.
+        403:
+          description: Request is not authorized.
+        405:
+          description: Invalid input
+        500:
+          description: Internal error
+    put:
+      consumes:
+      - application/json
+      - application/xml
+      produces:
+      - application/json
+      - application/xml
+      tags:
+      - Books
+      summary: Update a  Book.
+      description: Update a Book.
+      operationId: updateBook
+      parameters:
+      - name: id
+        in: path
+        description: id of the Book that needs to be updated
+        required: true
+        type: string
+      - name: BookModel
+        in: body
+        description: Request Body that contains data required for updating a Book
+        required: true
+        schema:
+          $ref: '#/definitions/BookModel'
+      responses:
+        200:
+          description: Returns updated Book
+          schema:
+            $ref: '#/definitions/BookModel'
+        400:
+          description: Malformed syntax.
+        401:
+          description: Request does not have sufficient credentials.
+        403:
+          description: Request is not authorized.
+        405:
+          description: Invalid input
+        500:
+          description: Internal error
+    delete:
+      produces:
+      - application/json
+      - application/xml
+      tags:
+      - Books
+      summary: Deletes the a Book by given ID.
+      description: Deletes the Book identified by given ID
+      operationId: deleteBook
+      parameters:
+      - name: id
+        in: path
+        description: Id of the Book that needs to be deleted
+        required: true
+        type: string
+      responses:
+        200:
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/BookModel'
+        400:
+          description: Malformed syntax.
+        401:
+          description: Request does not have sufficient credentials.
+        403:
+          description: Request is not authorized.
+        500:
+          description: Internal error
+definitions:
+  BookModel:
+    description: BokModel
+    type: object
+    required:
+    - bookId
+    properties:
+     id:
+        description: Id of the Book
+        type: string
+     name:
+        description: Name of the book
+        type: string
+        maxLength: 50
+     authorName:
+        description: Author Name
+        type: string
+        maxLength: 50
+     description:
+        description: Book Description 
+        type: string
+        maxLength: 100
+  BookModelCollection:
+    description: Collection of BookModel.
+    type: object
+    properties:
+      Books:
+        type: array
+        items:
+          $ref: '#/definitions/BookModel'
